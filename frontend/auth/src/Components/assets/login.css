@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Briem+Hand:wght@100..900&display=swap');
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Briem Hand', sans-serif;
+}
+h2 {
+    margin: 2rem;
+}
+input {
+    display: inline;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2px;
+    border: none;
+    text-underline-position: below;
+}
+.container {
+    border: 1px solid #000;
+    border-radius: 10px;
+    margin-top: 10rem;
+}
+.btn {
+    width: 100px;
+    font-size: 18px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.btn:hover {
+    color: aqua;
+    background-color: #000;
+}
+.input-underline {
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #ced4da;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.input-underline:focus {
+    border-color: #000;
+    box-shadow: none;
+}
