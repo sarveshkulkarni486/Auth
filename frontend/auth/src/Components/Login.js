@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import LoginImg from './assets/background.jpg';
 import './assets/login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Link } from 'react-router-dom';
 import Register from './Register';
+import axios from 'axios';
 const Login = () => {
     return (
         <div>
@@ -23,7 +24,7 @@ const Login = () => {
                                 
                                 <div className='mb-3'>
                                     <label for="password" className='form-label'>Password: </label>
-                                    <input type='password' className='input-underline' id='password' name='Password' />
+                                    <input type='text' className='input-underline' id='password' name='Password' />
                                 </div>
                                 <button type='submit' className='btn btn-primary'>Submit</button>
                                 <p>Not a member ?<Link to="/Register">Register</Link></p>
