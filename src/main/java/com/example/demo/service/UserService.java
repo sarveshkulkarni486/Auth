@@ -17,5 +17,13 @@ public class UserService {
 	public User addUser(User user) {
 		return userRepository.save(user);
 	}
+	
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+	public boolean validateUser(String email, String password) {
+		User user = userRepository.findByEmail(email);
+		return user != null && user.getPassword().equals(password);
+	}
 
 }

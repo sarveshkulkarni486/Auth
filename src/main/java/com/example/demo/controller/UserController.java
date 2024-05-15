@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +26,12 @@ public class UserController {
 	public User addUser(@RequestBody User user) {
 		return userservice.addUser(user);
 		
+	}
+	
+	@PostMapping("/login")
+	public String login(@RequestBody User user) {
+		boolean isValidUser = userservice.validateUser(user.getEmail(), user.getPassword());
+		return isValidUser ? "Inavlid user" : "Login successful";
 	}
 
 }

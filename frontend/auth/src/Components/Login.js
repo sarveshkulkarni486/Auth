@@ -6,6 +6,20 @@ import {Link } from 'react-router-dom';
 import Register from './Register';
 import axios from 'axios';
 const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    
+    const handleLogin = async(e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8080/api/login', {email, password});
+            console.log(response.data);
+            alert(response.data);
+        } catch(error) {
+            console.error('Login failed', error);
+            console.log(error);
+        }
+    };
     return (
         <div>
             <div className='container'>
@@ -16,22 +30,21 @@ const Login = () => {
                     <div className='col-md-6'>
                         <div className='form-container'>
                             <h2>Fill out the Form</h2>
-                            <form>
+                            <form onSubmit={handleLogin}>
                                 <div className='mb-3'>
                                     <label for="email" className='form-label'>Email Id: </label>
-                                    <input type='email' className='input-underline' id='email' name='email' />
+                                    <input type='email' className='input-underline' id='email' name='email' value={email} onChange={(e)=> setEmail(e.target.value)} />
                                 </div>
                                 
                                 <div className='mb-3'>
                                     <label for="password" className='form-label'>Password: </label>
-                                    <input type='text' className='input-underline' id='password' name='Password' />
+                                    <input type='text' className='input-underline' id='password' name='Password' value={password} onChange={(e)=> setPassword(e.target.password)} />
                                 </div>
                                 <button type='submit' className='btn btn-primary'>Submit</button>
                                 <p>Not a member ?<Link to="/Register">Register</Link></p>
                             </form>
                         </div>
-                    </div>
-                    
+                    </div>   
                 </div>
             </div>
         </div>

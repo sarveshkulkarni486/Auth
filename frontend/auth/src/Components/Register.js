@@ -6,34 +6,21 @@ import { Link } from 'react-router-dom';
 import Login from "./Login";
 import axios from 'axios';
 const Register = () => {
-    const [formData, setFormData] = useState({
-        firstname: '',
-        lastname: '',
-        email: '',
-        password: '',
-    });
-    const handleChange = event => {
-        const {name, value} = event.target;
-        setFormData({...formData, [name]: value});
-    };
+    const [firstname, setFirstname] = useState('');
+    const[lastname, setLastname] = useState('');
+    const[email, setEmail] = useState('');
+    const[password, SetPassword] = useState('');
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        fetch('http://localhost:8080/api/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response=> response.json())
-        .then(data=> {
-            console.log('Registration successful', data);
-        })
-        .catch(error => {
-            console.error('Error during registration', error);
-        });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8080/api/register', {firstname, lastname, email, password})
+        }
+        catch(error) {
+            console.error('Registration failed', error);
+        }
     };
+   
     return (
             <div>
             <div className='container'>
@@ -47,20 +34,20 @@ const Register = () => {
                             <form onSubmit={handleSubmit}>
                                 <div className='mb-3'>
                                     <label for="firstname" className='form-label'>First Name: </label>
-                                    <input type='text' className='input-underline' id='firstname' name='firstname' value={formData.firstname} onChange={handleChange} />
+                                    <input type='text' className='input-underline' id='firstname' name='firstname' value={firstname} onChange={(e)=> setFirstname(e.target.value)}  />
                                 </div>
                                 <div className='mb-3'>
                                     <label for="lastname" className='form-label'>Last Name: </label>
-                                    <input type='text' className='input-underline' id='lastname' name='lastname' value={formData.lastname} onChange={handleChange} />
+                                    <input type='text' className='input-underline' id='lastname' name='lastname' value={lastname} onChange={(e)=> setLastname(e.target.value)} />
                                 </div>
                                 <div className='mb-3'>
                                     <label for="email" className='form-label'>Email Id: </label>
-                                    <input type='email' className='input-underline' id='email' name='email' value={formData.email} onChange={handleChange} />
+                                    <input type='email' className='input-underline' id='email' name='email' value={email} onChange={(e)=> setEmail(e.target.value)} />
                                 </div>
                                 
                                 <div className='mb-3'>
                                     <label for="password" className='form-label'>Password: </label>
-                                    <input type='text' className='input-underline' id='password' name='password' value={formData.password} onChange={handleChange} />
+                                    <input type='text' className='input-underline' id='password' name='password' value={password} onChange={(e) => SetPassword(e.target.value)} />
                                 </div>
                                 <button type='submit' className='btn btn-primary'>Submit</button>
                                 <p>Already a member ?<Link to="/">Login</Link></p>
