@@ -10,7 +10,6 @@ import com.example.demo.repository.UserRepository;
 
 @Service
 public interface UserService {
-	@Autowired
 	User saveUser(User user);
 	User findByEmail(String email);
 

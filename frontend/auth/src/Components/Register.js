@@ -10,17 +10,28 @@ const Register = () => {
     const[lastname, setLastname] = useState('');
     const[email, setEmail] = useState('');
     const[password, SetPassword] = useState('');
+    const[message, setMessage] = useState('');
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8080/api/register', {firstname, lastname, email, password})
-        }
-        catch(error) {
+            const response = await axios.post('http://localhost:8080/api/register', {
+                firstname,
+                lastname,
+                email, 
+                password
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            setMessage('Registration successful!');
+        } catch(error){
             console.error('Registration failed', error);
+            setMessage('Registration failed ' + error.response?.data.message || error.message);
         }
     };
-   
+
     return (
             <div>
             <div className='container'>
@@ -31,6 +42,7 @@ const Register = () => {
                     <div className='col-md-6'>
                         <div className='form-container'>
                             <h2>Fill out the Form</h2>
+                            {message && <div className="alert alert-info">{message}</div>}
                             <form onSubmit={handleSubmit}>
                                 <div className='mb-3'>
                                     <label for="firstname" className='form-label'>First Name: </label>
@@ -46,8 +58,8 @@ const Register = () => {
                                 </div>
                                 
                                 <div className='mb-3'>
-                                    <label for="password" className='form-label'>Password: </label>
-                                    <input type='text' className='input-underline' id='password' name='password' value={password} onChange={(e) => SetPassword(e.target.value)} />
+                                    <label htmlFor="password" className='form-label'>Password: </label>
+                                    <input type='password' className='input-underline' id='password' name='password' value={password} onChange={(e) => SetPassword(e.target.value)} />
                                 </div>
                                 <button type='submit' className='btn btn-primary'>Submit</button>
                                 <p>Already a member ?<Link to="/">Login</Link></p>
